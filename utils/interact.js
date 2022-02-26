@@ -105,5 +105,43 @@ export const getCurrentWalletConnected = async () => {
   }
 };
 
+export const mint = async (_name, _role, _userdata, bgColor, textColor, walletAddress) => {
 
+  //set up transaction parameters
+  const transactionParameters = {
+    to: contractAddress, // Required except during contract publications.
+    from: walletAddress, // must match user's active address.
+    value: parseInt(web3.utils.toWei("1", "ether")).toString(
+      18
+    ), // hex
+    gasLimit: "0",
+    data: nftBusinessCard.methods.mint(_name, _role, _userdata, bgColor, textColor, parseInt(web3.utils.toWei(1, "ether"))).encodeABI(),
+  };
+
+  //sign the transaction
+  try {
+    const txHash = await window.ethereum.request({
+      method: "eth_sendTransaction",
+      params: [transactionParameters],
+    });
+    return {
+      status: (
+        <span>
+          ✅{" "}
+          <a target="_blank" href={`https://mumbai.polygonscan.com/tx/${txHash}`}>
+            View the status of your transaction on Mumbai!
+          </a>
+          <br />
+          ℹ️ Once the transaction is verified by the network, the message will
+          be updated automatically.
+        </span>
+      ),
+    };
+  } catch (error) {
+    return {
+      status: "😥 " + error.message,
+    };
+  }
+
+};
 

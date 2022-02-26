@@ -24,7 +24,8 @@
     "react-color": "^2.19.3",
     "react-dom": "17.0.2",
     "react-svg": "^14.1.12",
-    "tailwindcss": "^3.0.23"
+    "tailwindcss": "^3.0.23",
+    "webjs": "^0.6.1"
   },
   "devDependencies": {
     "eslint": "8.9.0",
