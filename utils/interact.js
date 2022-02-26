@@ -1,3 +1,21 @@
+require('dotenv').config();
+
+const { API_URL, CONTRACT_ADDRESS } = process.env;
+
+const alchemyKey = API_URL;
+const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
+const web3 = createAlchemyWeb3(alchemyKey);
+
+const contractABI = require("../contract-abi.json");
+const contractAddress = CONTRACT_ADDRESS;
+
+export const nftBusinessCard = new web3.eth.Contract(
+  contractABI,
+  contractAddress
+);
+
+
+
 export const connectWallet = async () => {
   if (window.ethereum) {
     try {
@@ -86,4 +104,6 @@ export const getCurrentWalletConnected = async () => {
     };
   }
 };
+
+
 
