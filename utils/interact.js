@@ -112,11 +112,11 @@ export const mint = async (dataFormat) => {
   const transactionParameters = {
     to: contractAddress, // Required except during contract publications.
     from: dataFormat.walletAddress, // must match user's active address.
-    value: parseInt(web3.utils.toWei("1", "ether")).toString(
+    value: parseInt(web3.utils.toWei("0.001", "ether")).toString(
       18
     ), // hex
     gasLimit: "0",
-    data: nftBusinessCard.methods.mint(dataFormat.fullNameData, dataFormat.titleData, dataFormat.otherData, dataFormat.displayColorPickerBackground, dataFormat.textColor),
+    data: nftBusinessCard.methods.mint(dataFormat.fullNameData, dataFormat.titleData, dataFormat.otherData, dataFormat.displayColorPickerBackground, dataFormat.textColor).encodeABI(),
   };
 
   //sign the transaction
