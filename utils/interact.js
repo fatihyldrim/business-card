@@ -1,13 +1,13 @@
-require('dotenv').config();
+//require('dotenv').config();
 
-const { API_URL, CONTRACT_ADDRESS } = process.env;
+//const { API_URL, CONTRACT_ADDRESS } = process.env;
 
-const alchemyKey = API_URL;
+const alchemyKey = "wss://polygon-mumbai.g.alchemy.com/v2/pqCFvynlcYHdG0hl1ik5y4aiQhOJQs4Z";
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(alchemyKey);
 
 const contractABI = require("../contract-abi.json");
-const contractAddress = CONTRACT_ADDRESS;
+const contractAddress = "0xB16f6f2A6afa138b353bBe88384a830B82805CE3";
 
 export const nftBusinessCard = new web3.eth.Contract(
   contractABI,
@@ -105,17 +105,18 @@ export const getCurrentWalletConnected = async () => {
   }
 };
 
-export const mint = async (_name, _role, _userdata, bgColor, textColor, walletAddress) => {
-
+export const mint = async (dataFormat) => {
+  dataFormat = JSON.parse(JSON.stringify(dataFormat));
+  console.log(dataFormat);
   //set up transaction parameters
   const transactionParameters = {
     to: contractAddress, // Required except during contract publications.
-    from: walletAddress, // must match user's active address.
+    from: dataFormat.walletAddress, // must match user's active address.
     value: parseInt(web3.utils.toWei("1", "ether")).toString(
       18
     ), // hex
     gasLimit: "0",
-    data: nftBusinessCard.methods.mint(_name, _role, _userdata, bgColor, textColor, parseInt(web3.utils.toWei(1, "ether"))).encodeABI(),
+    data: nftBusinessCard.methods.mint(dataFormat.fullNameData, dataFormat.titleData, dataFormat.otherData, dataFormat.displayColorPickerBackground, dataFormat.textColor),
   };
 
   //sign the transaction

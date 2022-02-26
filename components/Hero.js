@@ -3,14 +3,14 @@ import Image from "next/image";
 import { useStatus } from "../context/statusContext";
 import randomColor from "randomcolor";
 import { SwatchesPicker } from 'react-color'
-
+import {header} from './Header'
+import { useRouter } from 'next/router'
 import {
-mint
-} from "./utils/interact";
-
+mint, getCurrentWalletConnected
+} from "../utils/interact";
 
 class Hero extends React.Component {
-  
+
   state = {
     displayColorPickerBackground: false,
     displayColorPickerText: false,
@@ -18,14 +18,29 @@ class Hero extends React.Component {
     titleData : "",
     otherData : "",
     backgroundColor : "",
-    textColor : ""
+    textColor : "",
+    walletAddress : ""
   };
 
+  mintNFT = async (e)  => {
+    e.preventDefault();
+  
+    console.log(this.state);
+
+    const walletResponse = await getCurrentWalletConnected();
+    console.log(walletResponse.status);
+    console.log(walletResponse.address);
+    this.setState({walletAddress : walletResponse.address});
+    mint(this.state);
+  }
+
   handleClickBackground = () => {
+    
     this.setState({ displayColorPickerBackground: !this.state.displayColorPickerBackground })
   };
 
   handleCloseBackground = () => {
+    
     this.setState({ displayColorPickerBackground: false })
   };
   handleChangBackground = (color, event) => {
@@ -115,9 +130,9 @@ class Hero extends React.Component {
               </div> 
 
               <div className="flex w-full">
-                <button  onClick={ event =>  {console.log(this.state)}} className="py-2 px-4 bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                <span  onClick={(e) => this.mintNFT(e)} className="py-2 px-4 bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                   Mint your NFT Business Card
-                </button>
+                </span>
               </div>
            
           </div>

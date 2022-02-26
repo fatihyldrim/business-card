@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import { useStatus } from "../context/statusContext";
 import { connectWallet, getCurrentWalletConnected } from "../utils/interact";
 
+
 const Header = () => {
   const { setStatus } = useStatus();
   const [walletAddress, setWalletAddress] = useState("");
-
+  
   const connectWalletPressed = async () => {
     const walletResponse = await connectWallet();
     setWalletAddress(walletResponse.address);
