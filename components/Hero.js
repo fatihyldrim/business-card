@@ -5,12 +5,8 @@ import randomColor from "randomcolor";
 import { SwatchesPicker } from 'react-color'
 
 import {
-  getMaxMintAmount,
-  getTotalSupply,
-  getNftPrice,
-  mintNFT,
-  getSaleState,
-} from "../utils/interact";
+mint
+} from "./utils/interact";
 
 
 class Hero extends React.Component {
