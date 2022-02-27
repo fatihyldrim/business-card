@@ -7,7 +7,7 @@ const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(alchemyKey);
 
 const contractABI = require("../contract-abi.json");
-const contractAddress = "0xB16f6f2A6afa138b353bBe88384a830B82805CE3";
+const contractAddress = "0x6Fb606581047D5fE433195E44E229Cd5e9cDC86c";
 
 export const nftBusinessCard = new web3.eth.Contract(
   contractABI,
@@ -112,10 +112,8 @@ export const mint = async (dataFormat) => {
   const transactionParameters = {
     to: contractAddress, // Required except during contract publications.
     from: dataFormat.walletAddress, // must match user's active address.
-    value: parseInt(web3.utils.toWei("0.001", "ether")).toString(
-      18
-    ), // hex
-    gasLimit: "0",
+    value: parseInt(web3.utils.toWei("0.0001", "ether")).toString(16), // hex
+    gasLimit: "3000",
     data: nftBusinessCard.methods.mint(dataFormat.fullNameData, dataFormat.titleData, dataFormat.otherData, dataFormat.displayColorPickerBackground, dataFormat.textColor).encodeABI(),
   };
 
