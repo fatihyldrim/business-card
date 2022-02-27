@@ -19,7 +19,8 @@ class Hero extends React.Component {
     otherData : "",
     backgroundColor : "",
     textColor : "",
-    walletAddress : ""
+    walletAddress : "",
+    currentPriceOfNFT: ""
   };
 
   mintNFT = async (e)  => {
@@ -28,9 +29,11 @@ class Hero extends React.Component {
     console.log(this.state);
 
     const walletResponse = await getCurrentWalletConnected();
+    const _currentPriceOfNFT= await getCurrentPriceOfNFT();
     console.log(walletResponse.status);
     console.log(walletResponse.address);
     this.setState({walletAddress : walletResponse.address});
+    this.setState({currentPriceOfNFT : _currentPriceOfNFT});
     mint(this.state);
   }
 
