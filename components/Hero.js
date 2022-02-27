@@ -6,7 +6,7 @@ import { SwatchesPicker } from 'react-color'
 import {header} from './Header'
 import { useRouter } from 'next/router'
 import {
-mint, getCurrentWalletConnected
+mint, getCurrentWalletConnected, getCurrentPriceOfNFT
 } from "../utils/interact";
 
 class Hero extends React.Component {

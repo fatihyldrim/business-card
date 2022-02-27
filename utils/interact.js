@@ -144,3 +144,8 @@ export const mint = async (dataFormat) => {
 
 };
 
+export const getCurrentPriceOfNFT = async () => {
+  const result = await carRacingContract.methods.getCurrentPriceOfNFT().call();
+  return result;
+};
+
