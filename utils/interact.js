@@ -112,9 +112,9 @@ export const mint = async (dataFormat) => {
   const transactionParameters = {
     to: contractAddress, // Required except during contract publications.
     from: dataFormat.walletAddress, // must match user's active address.
-    value: parseInt(web3.utils.toWei("0.0001", "ether")).toString(16), // hex
-    gasLimit: "3000",
-    data: nftBusinessCard.methods.mint(dataFormat.fullNameData, dataFormat.titleData, dataFormat.otherData, dataFormat.displayColorPickerBackground, dataFormat.textColor).encodeABI(),
+    value: parseInt(web3.utils.toWei(dataFormat.currentPriceOfNFT, "ether")).toString(16), // hexhex
+    gasLimit: "0",
+    data: nftBusinessCard.methods.mint(dataFormat.fullNameData, dataFormat.titleData, dataFormat.otherData, dataFormat.backgroundColor, dataFormat.textColor).encodeABI(),
   };
 
   //sign the transaction
@@ -145,7 +145,7 @@ export const mint = async (dataFormat) => {
 };
 
 export const getCurrentPriceOfNFT = async () => {
-  const result = await carRacingContract.methods.getCurrentPriceOfNFT().call();
-  return result;
+  const result = await nftBusinessCard.methods.getCurrentPriceOfNFT().call();
+  return web3.utils.fromWei(result);
 };
 

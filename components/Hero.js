@@ -32,6 +32,7 @@ class Hero extends React.Component {
     const _currentPriceOfNFT= await getCurrentPriceOfNFT();
     console.log(walletResponse.status);
     console.log(walletResponse.address);
+    console.log(_currentPriceOfNFT);
     this.setState({walletAddress : walletResponse.address});
     this.setState({currentPriceOfNFT : _currentPriceOfNFT});
     mint(this.state);
